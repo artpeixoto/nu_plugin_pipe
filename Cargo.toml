@@ -2,6 +2,11 @@
 name = "nu_plugin_pipe"
 version = "0.0.1+0.113.1"
 edition = "2024"
+description = "Its a simple nu plugin that creates and manages simple named pipes. These pipes won't die at the end of the command like the vanilla nu pipe operator, which means you can use them as outputs or stuff like that for more sophisticated logic. "
+homepage = "https://github.com/artpeixoto/nu_plugin_pipe"
+license = "MIT OR Apache-2.0"
+
+
 
 [dependencies]
 anyhow = { version = "1.0.102", features = ["backtrace"] }
@@ -12,4 +17,3 @@ rand = "0.10.1"
 serde = "1.0.228"
 tap = "1.0.1"
 thiserror = "2.0.18"
-uuid = { version = "1.23.3", features = ["v4", "rng-rand", "serde", "sha1"] }

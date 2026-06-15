@@ -21,13 +21,16 @@ use petname::petname;
 use serde::{Deserialize, Serialize};
 use tap::Pipe as _;
 use thiserror::Error;
-use uuid::Uuid;
 
 use crate::cmds::{drop::ClosePipeCmd, get_pipe::GetPipeCmd, list::ListPipesCmd, new::NewPipeCmd, read::ReadFromPipeCmd, write::WriteIntoPipeCmd};
 
 pub mod pipe_arg;
 
 pub const DEFAULT_PIPE_SIZE: usize = 256_usize;
+
+
+
+// ok i gotta admit this crate is not organized at all. Later ill tidy things up a bit.
 
 fn main() {
     // PipePlugin::new().
