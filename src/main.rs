@@ -36,7 +36,7 @@ fn main() {
 
 impl Plugin for PipePlugin {
     fn version(&self) -> String {
-        "0.1.0+0.113.1".to_string()
+        "0.0.1+0.113.1".to_string()
     }
 
     fn commands(&self) -> Vec<Box<dyn PluginCommand<Plugin = Self>>> {
