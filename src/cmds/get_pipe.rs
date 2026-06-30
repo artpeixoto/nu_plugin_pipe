@@ -158,7 +158,8 @@ impl PluginCommand for GetPipeReceiverCmd {
                 .positional
                 .first()
                 .ok_or_else(|| {
-                    LabeledError::new("Missing name arg").with_label("this motherfucker", call.head)
+                    LabeledError::new("Missing name arg")
+                    .with_label("here", call.head)
                 })?
                 .clone();
 

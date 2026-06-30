@@ -1,7 +1,10 @@
 # Description
 Its a simple nu plugin allows you to create and manage persistent named pipes. 
 These pipes won't die at the end of the command like the vanilla nu pipe operator, which means you can use them as outputs or stuff like that for more sophisticated logic. 
-They will only die when you
+They will only die when you actually close them.
+
+# Note
+This crate is HIGHLY EXPERIMENTAL. Honestly its more of a 
 
 # Todo
 - Add peeking

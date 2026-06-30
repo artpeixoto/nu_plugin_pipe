@@ -2,7 +2,7 @@
 name = "nu_plugin_pipe"
 version = "0.0.1+0.113.1"
 edition = "2024"
-description = "Its a simple nu plugin that creates and manages simple named pipes. These pipes won't die at the end of the command like the vanilla nu pipe operator, which means you can use them as outputs or stuff like that for more sophisticated logic. "
+description = "Its a simple nu plugin that allows you to create and manage simple, persistent, named pipes."
 homepage = "https://github.com/artpeixoto/nu_plugin_pipe"
 license = "MIT OR Apache-2.0"
 
