@@ -1,9 +1,8 @@
 use std::thread;
-
 use nu_plugin::{EngineInterface, EvaluatedCall, PluginCommand};
 use nu_protocol::{
     IntoInterruptiblePipelineData, LabeledError, ListStream, PipelineData, Signals, Signature,
-    Span, Type,
+    Span, Type, Value,
 };
 use tap::Pipe;
 
@@ -26,7 +25,10 @@ impl PluginCommand for WriteIntoPipeCmd {
                 PIPE_ARG_ALLOWED_TYPES.arg_type().to_shape(),
                 "the pipe into which to write",
             )
-            .input_output_type(Type::List(Box::new(Type::Any)), Type::Nothing)
+            .input_output_types(Vec::from_iter([
+            	( Type::Any, Type::Nothing ),
+            	( Type::List(Box::new(Type::Any)), Type::Nothing )
+            ]))
 
     }
 
@@ -54,13 +56,16 @@ impl PluginCommand for WriteIntoPipeCmd {
             .ok_or_else(|| LabeledError::new("pipe does not exist or is closed"))?
             .get_writer();
 
-        let a = input
-            .into_iter()
-            .try_for_each(move |val| pipe_writer.write_one(val))
-            .map_err(|e| {
-                LabeledError::new("something happened. Probably the pipe was closed somewhere.")
-            })?;
-
+        match input{
+            PipelineData::Value(Value::List { vals, signals, internal_span, .. }, pipeline_metadata) => {
+            	vals.into_iter().try_for_each(|x| pipe_writer.write_one(x))            ;
+            },
+            PipelineData::ListStream(list_stream, pipeline_metadata) => {
+            	list_stream.into_inner().try_for_each(|x| pipe_writer.write_one(x));
+            },
+            PipelineData::Value(val, ..)  => { pipe_writer.write_one(val); }
+            _ => return Err(LabeledError::new("invalid input"))
+        }
         Ok(PipelineData::Empty)
     }
 }

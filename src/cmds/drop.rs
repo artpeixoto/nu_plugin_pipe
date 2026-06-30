@@ -6,7 +6,7 @@ use tap::Pipe;
 
 
 use crate::{
-    PipeId, PipePlugin, PipeReaderValue, PipeWriterValue, PipeValue,
+    PipeId, PipePlugin,  PipeValue,
     pipe_arg::{PipeArgAllowedTypes, pipe_arg_type, pipe_arg_from_value},
 };
 

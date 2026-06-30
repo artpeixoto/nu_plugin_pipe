@@ -17,3 +17,7 @@ rand = "0.10.1"
 serde = "1.0.228"
 tap = "1.0.1"
 thiserror = "2.0.18"
+tokio = { version = "1.52.3", features = ["sync"] }
+
+[features]
+testing = []

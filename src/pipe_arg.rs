@@ -1,6 +1,6 @@
 use nu_protocol::{FromValue, LabeledError, Span, Type, Value};
 
-use crate::{PipeId, PipeReaderValue, PipeWriterValue, PipeValue};
+use crate::{PipeId, PipeReaderValue, PipeValue};
 
 pub fn pipe_arg_from_value(
     value: Value,
@@ -12,16 +12,16 @@ pub fn pipe_arg_from_value(
     {
         return Ok(val.0);
     }
-    if allowed_types.writer
-        && let Ok(val) = PipeWriterValue::from_value(value.clone())
-    {
-        return Ok(val.0);
-    }
-    if allowed_types.reader
-        && let Ok(val) = PipeReaderValue::from_value(value.clone())
-    {
-        return Ok(val.0);
-    }
+    // if allowed_types.writer
+    //     && let Ok(val) = PipeWriterValue::from_value(value.clone())
+    // {
+    //     return Ok(val.0);
+    // }
+    // if allowed_types.reader
+    //     && let Ok(val) = PipeReaderValue::from_value(value.clone())
+    // {
+    //     return Ok(val.0);
+    // }
     if allowed_types.string
         && let Ok(val) = String::from_value(value)
     {
@@ -40,8 +40,8 @@ pub fn pipe_arg_type (
 	Type::one_of(
 		[
 			allowed_types.full.then_some(PipeValue::expected_type()),
-	        allowed_types.writer.then_some(PipeWriterValue::expected_type()),
-	        allowed_types.reader.then_some(PipeReaderValue::expected_type()),
+	        // allowed_types.writer.then_some(PipeWriterValue::expected_type()),
+	        // allowed_types.reader.then_some(PipeReaderValue::expected_type()),
 	        allowed_types.string.then_some(Type::String),
         ]
         .into_iter()
@@ -51,8 +51,8 @@ pub fn pipe_arg_type (
 
 pub struct PipeArgAllowedTypes {
     pub full: bool,
-    pub writer: bool,
-    pub reader: bool,
+    // pub writer: bool,
+    // pub reader: bool,
     pub string: bool,
 }
 
@@ -60,21 +60,21 @@ impl PipeArgAllowedTypes {
     pub const fn all() -> Self {
         Self {
             full: true,
-            writer: true,
-            reader: true,
+            // writer: true,
+            // reader: true,
             string: true,
         }
     }
 
     #[inline(always)]
     pub const fn only_readers(mut self) -> Self {
-        self.writer = false;
+        // self.writer = false;
         self
     }
 
     #[inline(always)]
     pub const fn only_writers(mut self) -> Self {
-        self.reader = false;
+        // self.reader = false;
         self
     }
 

@@ -115,7 +115,7 @@ impl PluginCommand for GetPipeSenderCmd {
             .ok_or_else(|| {
                 LabeledError::new("pipe with that name either does not exist or has been closed")
             })?
-            .into_sender();
+            ;
 
         let result = PipelineData::value(pipe_value.into_value(Span::unknown()), None);
         Ok(result)
@@ -183,4 +183,5 @@ impl PluginCommand for GetPipeReceiverCmd {
 
         Ok(result)
     }
+
 }
