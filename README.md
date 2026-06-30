@@ -4,7 +4,11 @@ These pipes won't die at the end of the command like the vanilla nu pipe operato
 They will only die when you actually close them.
 
 # Note
-This crate is HIGHLY EXPERIMENTAL. Honestly its more of a 
+This crate is HIGHLY EXPERIMENTAL. Honestly its more of a personal toy. It might not work very well, at least for now. If you want something that will actually help you, take a look at the alternatives
+
+# Alternatives
+- (cross-stream)[https://crates.io/crates/cross-stream] : much better, full of functionalities. Will probably serve you better.
+- thats it i dont know any other
 
 # Todo
 - Add peeking
@@ -17,7 +21,3 @@ This crate is HIGHLY EXPERIMENTAL. Honestly its more of a
 - Add put-back
 - fix the locking issues
 - Add timeout
-
-# Alternatives
-- (cross-stream)[https://crates.io/crates/cross-stream] : much better, full of functionalities. Will probably serve you better.
-- thats it i dont know any other
