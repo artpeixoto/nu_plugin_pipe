@@ -3,6 +3,7 @@ use nu_protocol::{
     IntoInterruptiblePipelineData, IntoSpanned, LabeledError, ListStream, PipelineData,
     PipelineMetadata, Signals, Signature, Span, SyntaxShape, Type, Value, engine::Closure,
 };
+
 use tap::Pipe;
 
 use crate::{PipePlugin, PipeReaderReadCondition, pipe_arg::PipeArgAllowedTypes};
@@ -176,7 +177,7 @@ impl PluginCommand for ReadFromPipeCmd {
             .read(condition);
 
         ListStream
-        	::new(pipe_receiver, call.head, Signals::empty())
+        	::new(pipe_receiver, call.head, engine.signals().clone())
             .pipe(|ls| PipelineData::list_stream(ls, None))
             .pipe(Ok)
 

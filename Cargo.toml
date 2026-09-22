@@ -10,8 +10,8 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 anyhow = { version = "1.0.102", features = ["backtrace"] }
-nu-plugin = "0.113.1"
-nu-protocol = { version = "0.113.1", features = ["plugin", "rmp-serde"] }
+nu-plugin = { version = "0.115.1", }
+nu-protocol = { version = "0.115.1", features = ["plugin", "rmp-serde",] }
 petname = "3.0.0"
 rand = "0.10.1"
 serde = "1.0.228"

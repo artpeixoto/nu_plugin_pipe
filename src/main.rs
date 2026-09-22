@@ -21,7 +21,6 @@ use nu_protocol::{
 use petname::petname;
 use serde::{Deserialize, Serialize};
 use tap::{Conv, Pipe as _};
-use thiserror::Error;
 use tokio::sync::Mutex;
 
 use crate::cmds::{
@@ -121,7 +120,7 @@ pub struct Pipe {
     rx: PipeInnerReceiver,
 }
 
-pub type PipeInnerSender = SyncSender<Value>;
+pub type PipeInnerSender   = SyncSender<Value>;
 pub type PipeInnerReceiver = Arc<Mutex<PeekableReceiver<Value>>>;
 
 impl Pipe {
@@ -186,6 +185,7 @@ impl PipeWriter {
         self.0.send(value)?;
         Ok(())
     }
+    
 }
 
 pub enum PipeReaderReadCondition {
@@ -246,7 +246,6 @@ impl PipeReader {
              	let mut count = n;
                 let inner = move || {
                     let mut lock = lock_cell.take()?;
-
                     if count == 0 { return None; }
                     let val = lock.recv().ok()?;
                     count -= 1;
@@ -478,11 +477,6 @@ impl PipeState {
     }
 }
 
-#[derive(Debug, Error)]
-#[error("pipe name already exists")]
-pub struct PipeNameExistsError {
-    pub name: String,
-}
 
 #[derive(Clone, PartialEq, Eq, Debug, Serialize, Deserialize)]
 pub enum ObjectRemovalResult {

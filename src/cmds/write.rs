@@ -50,6 +50,8 @@ impl PluginCommand for WriteIntoPipeCmd {
             PIPE_ARG_ALLOWED_TYPES.parse_value(value)?
         };
 
+        let mk_pipe_closed_err = || LabeledError::new("Pipe is closed");
+
         let mut pipe_writer = plugin
             .state()?
             .get_pipe(&pipe_id)
@@ -58,12 +60,18 @@ impl PluginCommand for WriteIntoPipeCmd {
 
         match input{
             PipelineData::Value(Value::List { vals, signals, internal_span, .. }, pipeline_metadata) => {
-            	vals.into_iter().try_for_each(|x| pipe_writer.write_one(x))            ;
+                for val in vals {
+                    let Ok(_) = pipe_writer.write_one(val) else { break };
+                }
             },
             PipelineData::ListStream(list_stream, pipeline_metadata) => {
-            	list_stream.into_inner().try_for_each(|x| pipe_writer.write_one(x));
+                for val in list_stream.into_iter() {
+                    let Ok(_) = pipe_writer.write_one(val) else { break };
+                }
             },
-            PipelineData::Value(val, ..)  => { pipe_writer.write_one(val); }
+            PipelineData::Value(val, ..)  => {
+                let Ok(()) = pipe_writer.write_one(val) else {return Err(LabeledError::new("Pipe closed."))};
+            }
             _ => return Err(LabeledError::new("invalid input"))
         }
         Ok(PipelineData::Empty)
