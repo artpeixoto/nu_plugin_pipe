@@ -1,6 +1,6 @@
 [package]
 name = "nu_plugin_pipe"
-version = "0.0.1+0.113.1"
+version = "0.1.1+0.115.1"
 edition = "2024"
 description = "Its a simple nu plugin that allows you to create and manage simple, persistent, named pipes."
 homepage = "https://github.com/artpeixoto/nu_plugin_pipe"
